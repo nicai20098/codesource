@@ -37,7 +37,7 @@ public class RpcClient {
 
             ChannelFuture future = channel.writeAndFlush(new RpcRequestMessage(
                     1,
-                    "cn.itcast.server.service.HelloService",
+                    "com.jiabb.server.service.HelloService",
                     "sayHello",
                     String.class,
                     new Class[]{String.class},
