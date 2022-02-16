@@ -13,5 +13,90 @@
     <artifactId>protobuf-demo</artifactId>
 
 
+    <properties>
+        <maven.complier.source>1.8</maven.complier.source>
+        <maven.complier.target>1.8</maven.complier.target>
+        <proto-google-common-protos.version>1.17.0</proto-google-common-protos.version>
+        <grpc-java.version>1.24.0</grpc-java.version>
+        <protobuf-java.version>3.8.0</protobuf-java.version>
+    </properties>
+
+    <dependencies>
+        <!-- gRPC dependency start -->
+<!--        <dependency>-->
+<!--            <groupId>io.grpc</groupId>-->
+<!--            <artifactId>grpc-netty-shaded</artifactId>-->
+<!--            <version>${grpc-java.version}</version>-->
+<!--        </dependency>-->
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>${grpc-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>${grpc-java.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>protoc-gen-grpc-java</artifactId>
+            <version>${grpc-java.version}</version>
+            <type>pom</type>
+        </dependency>
+        <dependency>
+            <groupId>com.google.api.grpc</groupId>
+            <artifactId>proto-google-common-protos</artifactId>
+            <version>${proto-google-common-protos.version}</version>
+        </dependency>
+        <!-- gRPC dependency end -->
+
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>${protobuf-java.version}</version>
+        </dependency>
+
+    </dependencies>
+    <build>
+        <extensions>
+            <extension>
+                <groupId>kr.motd.maven</groupId>
+                <artifactId>os-maven-plugin</artifactId>
+                <version>1.5.0.Final</version>
+            </extension>
+        </extensions>
+        <plugins>
+            <!--            Grpc coding plug-in-->
+            <plugin>
+                <groupId>org.xolstice.maven.plugins</groupId>
+                <artifactId>protobuf-maven-plugin</artifactId>
+                <version>0.5.0</version>
+                <configuration>
+                    <protocArtifact>com.google.protobuf:protoc:${protobuf-java.version}:exe:windows-x86_64
+                    </protocArtifact>
+                    <pluginId>grpc-java</pluginId>
+                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:${grpc-java.version}:exe:windows-x86_64
+                    </pluginArtifact>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>compile-custom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
