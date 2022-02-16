@@ -4,6 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <groupId>com.jiabb</groupId>
     <artifactId>nacos</artifactId>
     <packaging>pom</packaging>
@@ -12,6 +13,7 @@
         <module>protobuf-demo</module>
         <module>jraft-demo</module>
         <module>micrometer-demo</module>
+        <module>hessian-demo</module>
     </modules>
 
     <properties>
