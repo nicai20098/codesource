@@ -14,6 +14,7 @@
         <module>jraft-demo</module>
         <module>micrometer-demo</module>
         <module>hessian-demo</module>
+        <module>disruptor-demo</module>
     </modules>
 
     <properties>
