@@ -15,6 +15,7 @@
         <module>micrometer-demo</module>
         <module>hessian-demo</module>
         <module>disruptor-demo</module>
+        <module>kryo-demo</module>
     </modules>
 
     <properties>
