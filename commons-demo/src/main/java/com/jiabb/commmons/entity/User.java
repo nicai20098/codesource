@@ -79,4 +79,8 @@ public class User {
 	public void setTag(Map<String, String> tag) {
 		this.tag = tag;
 	}
+
+	public String getStatus(){
+		return status;
+	}
 }

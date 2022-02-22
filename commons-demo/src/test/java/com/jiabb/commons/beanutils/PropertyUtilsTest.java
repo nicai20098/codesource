@@ -3,19 +3,14 @@ package com.jiabb.commons.beanutils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.jiabb.commmons.entity.Address;
-import com.jiabb.commmons.entity.Student;
 import com.jiabb.commmons.entity.User;
 import junit.framework.TestCase;
-import org.apache.commons.beanutils.BeanIntrospector;
-import org.apache.commons.beanutils.BeanUtilsBean;
-import org.apache.commons.beanutils.IntrospectionContext;
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.beanutils.PropertyUtilsBean;
 import org.junit.Assert;
-import org.junit.Before;
 
-import java.beans.IntrospectionException;
+import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
@@ -111,14 +106,89 @@ public class PropertyUtilsTest extends TestCase {
 	 * |getPropertyType(final Object bean, final String name) | Class<?> | 获得属性类型|
 	 * |getReadMethod(final PropertyDescriptor descriptor) | Method | 返回一个可访问的属性的getter方法|
 	 * |getWriteMethod(final PropertyDescriptor descriptor) | Method | 返回一个可访问的属性的setter方法|
+	 *
+	 * Map 语法 ()
+	 * List 语法是 []
 	 */
-	public void testPropertyDescriptor(){
+	public void testPropertyDescriptor() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
 		init();
 
+		PropertyDescriptor[] propertyDescriptors = PropertyUtils.getPropertyDescriptors(User.class);
+		Assert.assertEquals(5, propertyDescriptors.length);
 
+		PropertyDescriptor[] propertyDescriptorsBean = PropertyUtils.getPropertyDescriptors(user);
+		Assert.assertArrayEquals(propertyDescriptors, propertyDescriptorsBean);
+
+		//获取属性描述对象
+		PropertyDescriptor name = PropertyUtils.getPropertyDescriptor(user, "name");
+
+		//待定
+		Class<?> userId = PropertyUtils.getPropertyEditorClass(user, "name");
+
+		Class<?> propertyType = PropertyUtils.getPropertyType(user, "name");
+		Assert.assertEquals(String.class, propertyType);
+
+		Method readMethod = PropertyUtils.getReadMethod(name);
+		String invoke = (String) readMethod.invoke(user);
+		Assert.assertEquals("name", invoke);
+
+		Method writeMethod = PropertyUtils.getWriteMethod(name);
+		writeMethod.invoke(user, "name_update");
+		Assert.assertEquals("name_update", user.getName());
 
 	}
 
+	/**
+	 * |isReadable(final Object bean, final String name) | boolean | 判断是否为可读属性|
+	 * |isWriteable(final Object bean, final String name) | boolean | 判断是否为可写属性|
+	 */
+	public void testIsReadOrIsWrite() {
+		init();
+
+		boolean read = PropertyUtils.isReadable(user, "status");
+		boolean write = PropertyUtils.isWriteable(user, "status");
+		Assert.assertTrue(read);
+		Assert.assertFalse(write);
+
+	}
+
+	/**
+	 * |setProperty(final Object bean, final String name, final Object value) | void | 设置属性值|
+	 * |setSimpleProperty(final Object bean, final String name, final Object value) | void | 设置属性值|
+	 * |setIndexedProperty(final Object bean, final String name,final Object value) | void | 设置指定索引属性值，适用于属性是list或者array的情况|
+	 * |setIndexedProperty(final Object bean, final String name, final int index, final Object value) | void | 设置指定索引属性值，适用于属性是list或者array的情况|
+	 * |setMappedProperty(final Object bean, final String name,final Object value) | void | 设置Map属性的值|
+	 * |setMappedProperty(final Object bean, final String name, final String key, final Object value) | void | 设置Map属性的值|
+	 * |setNestedProperty(final Object bean, final String name, final Object value) | void | 设置嵌套属性的值|
+	 *
+	 *
+	 * Map 语法 ()
+	 * List 语法是 []
+	 */
+	public void testSetProperty() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+		init();
+		PropertyUtils.setProperty(user, "name", "name_update");
+		Assert.assertEquals("name_update", user.getName());
+
+		PropertyUtils.setSimpleProperty(user, "userId", "id_update");
+		Assert.assertEquals("id_update", user.getUserId());
+
+		PropertyUtils.setIndexedProperty(user, "friendsNames[0]","wangwu");
+		Assert.assertEquals("wangwu", user.getFriendsNames().get(0));
+
+		PropertyUtils.setIndexedProperty(user, "friendsNames", 1, "zhaoliu");
+		Assert.assertEquals("zhaoliu", user.getFriendsNames().get(1));
+
+		PropertyUtils.setMappedProperty(user, "tag(key1)", "value3");
+		Assert.assertEquals("value3", user.getTag().get("key1"));
+
+		PropertyUtils.setMappedProperty(user, "tag", "key2", "value4");
+		Assert.assertEquals("value4",user.getTag().get("key2"));
+
+		PropertyUtils.setNestedProperty(user, "address", new Address("address1"));
+		Assert.assertEquals("address1", user.getAddress().getEmail());
+
+	}
 
 
 }
