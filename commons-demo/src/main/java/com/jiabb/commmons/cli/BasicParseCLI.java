@@ -10,12 +10,13 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import java.util.Arrays;
+
 /**
  * BasicParser和DefaultParser只能解析基础的命令行参数
  */
 @Slf4j
 public class BasicParseCLI {
-
 
 	public static void main(String[] args) {
 		Options options = new Options();
@@ -23,7 +24,7 @@ public class BasicParseCLI {
 		options.addOption("d", "database", true,"name of a database");
 		options.addOption("t", true, "name of a table");
 
-		Option fileOption = Option.builder("f").argName("args").longOpt("files").hasArg().desc("file names").build();
+		Option fileOption = Option.builder("f").argName("args").longOpt("files").hasArgs().desc("file names").build();
 		options.addOption(fileOption);
 
 		//basicParser /GnuParser/PosixParser
@@ -40,8 +41,8 @@ public class BasicParseCLI {
 				log.info("database -> {}", d);
 				String t = cli.getOptionValue("t");
 				log.info("table -> {}", t);
-				String f = cli.getOptionValue("f");
-				log.info("files -> {}", f);
+				String[] fs = cli.getOptionValues("f");
+				log.info("files -> {} ,size -> {}", Arrays.asList(fs), fs.length);
 			}
 
 

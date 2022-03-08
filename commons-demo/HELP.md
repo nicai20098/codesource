@@ -123,12 +123,12 @@ commons-codec是Apache开源组织提供的用于摘要运算、编码解码的�
 ### Commons CLI
 Apache Commons CLI 库提供API，可以帮助程序去解析传递给程序的命令行参数。它也可以打印帮助信息，来说明可以运用于命令行的有效参数。
 CLI库支持不同格式的选项：
-  - OSIX格式的选项（比如：tar -zxvf foo.tar.gz）
-  - GNU格式的长参数选项（比如：du --human-readable --max-depth=1）
-  - Java格式的属性（比如：java -Djava.awt.headless=true -Djava.net.useSystemProxies=true Foo）
-  - 带值的单选项（比如：gcc -O2 foo.c）
-  - 单-号的长参数选项（比如：ant -projecthelp）
-Commons CLI提供了解析命令行参数的API，命令行的处理共分为三个阶段：定义阶段、解析阶段和审讯阶段。它也可以在命令行打印详细的参数信息
+- OSIX格式的选项（比如：tar -zxvf foo.tar.gz）
+- GNU格式的长参数选项（比如：du --human-readable --max-depth=1）
+- Java格式的属性（比如：java -Djava.awt.headless=true -Djava.net.useSystemProxies=true Foo）
+- 带值的单选项（比如：gcc -O2 foo.c）
+- 单-号的长参数选项（比如：ant -projecthelp）
+  Commons CLI提供了解析命令行参数的API，命令行的处理共分为三个阶段：定义阶段、解析阶段和审讯阶段。它也可以在命令行打印详细的参数信息
 
 #### CLI定义阶段
 Apache Commons CLI使用Options这个类来定义和设置参数，它是所有参数的容器。它提供了下面几种方法添加参数：
@@ -176,8 +176,8 @@ PosixParser：提供了解析POSIX形式参数的功能。
 GnuParser：提供了解析长参数及Java命令中参数的功能。
 
 示例：
-  CommandLineParser parser = new PosixParser();
-  CommandLine cli = parser.parse(options, args);
+CommandLineParser parser = new PosixParser();
+CommandLine cli = parser.parse(options, args);
 
 在解析阶段，我们需要使用DefaultParser来解析命令行参数。DefaultParser实现了CommandLineParser接口，解析命令行参数完成后会返回CommandLine对象，在审讯阶段，我们就需要CommandLine对象来完成我们实际的工作。
 
@@ -208,20 +208,20 @@ if(cli.hasOption("h")) {
 #### 简介
 Commons IO是针对开发IO流功能的工具类库。
 主要包括六个区域：
-  - Utility classes – 工具类，包括一些静态方法来执行常用任务
-  - Input – 输入，InputStream 和 Reader 实现
-  - Output – 输出，OutputStream 和 Writer 实现
-  - Filters – 过滤器，多种文件过滤器实现(定义了 IOFileFilter接口,同时继承了 FileFilter 和FilenameFilter 接口)
-  - Comparators – 比较器，用于文件比较的多种java.util.Comparatot实现
-  - File Monitor–文件监控
+- Utility classes – 工具类，包括一些静态方法来执行常用任务
+- Input – 输入，InputStream 和 Reader 实现
+- Output – 输出，OutputStream 和 Writer 实现
+- Filters – 过滤器，多种文件过滤器实现(定义了 IOFileFilter接口,同时继承了 FileFilter 和FilenameFilter 接口)
+- Comparators – 比较器，用于文件比较的多种java.util.Comparatot实现
+- File Monitor–文件监控
 
 #### 常用工具类
-  - IOUtils 包含一些工具类,用于处理读,写和拷贝,这些方法基于 InputStream, OutputStream, Reader 和 Writer工作.
-  - FileUtils 包含一些工具类,它们基于File对象工作，包括读，写，拷贝和比较文件
-  - FilenameUtils包含一些工具类,它们基于文件名工作而不是File对象。这个类旨在 在Unix和Windows环境下保持一致,帮助在两个环境下过渡(如从开发环境到生成环境)
-  - FileSystemUtils包含一些工具类，基于文件系统访问功能不被JDK支持。目前，只有一个方法就是得到驱动器空余空间。注意这使用命令行而不是 native code。
-  - EndianUtils 包含静态方法来交换Java基本类型和流的字节序
-  - SwappedDataInputStream实现了DataInput接口。可以从文件中读取非本地字节序。
+- IOUtils 包含一些工具类,用于处理读,写和拷贝,这些方法基于 InputStream, OutputStream, Reader 和 Writer工作.
+- FileUtils 包含一些工具类,它们基于File对象工作，包括读，写，拷贝和比较文件
+- FilenameUtils包含一些工具类,它们基于文件名工作而不是File对象。这个类旨在 在Unix和Windows环境下保持一致,帮助在两个环境下过渡(如从开发环境到生成环境)
+- FileSystemUtils包含一些工具类，基于文件系统访问功能不被JDK支持。目前，只有一个方法就是得到驱动器空余空间。注意这使用命令行而不是 native code。
+- EndianUtils 包含静态方法来交换Java基本类型和流的字节序
+- SwappedDataInputStream实现了DataInput接口。可以从文件中读取非本地字节序。
 
 ##### IOUtils
 IOUtils.copy(InputStream input, OutputStream output) // 此方法有多个重载方法，满足不同的输入输出流
@@ -432,35 +432,35 @@ java.nio.file.FileStore.getUsableSpace()
 同样，在 org.apache.commons.io.output包中同样有OutputStream类的实现，这里介绍TeeOutputStream，它可以将输出流进行分流，换句话说我们可以用一个输入流将数据分别读入到两个不同的输出流。
 
 ##### Filters过滤器
-  1. 基本功能过滤器
-	类型：
-	  - FileFileFilter       仅接受文件
-	  - DirectoryFilter          仅接受目录
-	名称：
-	  - PrefixFileFilter          基于前缀（不带路径的文件名)
-	  - SuffixFileFilter          基于后缀(不带路径的文件名)=
-	  - NameFileFilter         基于文件名称(不带路径的文件名)
-	  - WildcardFileFilter 基于通配符(不带路径的文件名)
-	  - RegexFileFilter         基于正则表达式
-	时间：
-	  - AgeFileFilter       基于最后修改时间
-	  - MagicNumberFileFileter   基于Magic Number
-	大小：
-	  - EmptyFileFilter         基于文件或目录是否为空
-	  - SizeFileFilter      基于文件尺寸
-	隐藏属性：
-	  - HiddenFileFilter   基于文件或目录是否隐藏
-	读写属性：
-	  - CanReadFileFilter 基于是否可读
-	  - CanWriteFileFilter     基于是否可写入
-	  - DelegateFileFilter 将普通的FileFilter和FilenameFilter包装成IOFileFilter
+1. 基本功能过滤器
+   类型：
+    - FileFileFilter       仅接受文件
+    - DirectoryFilter          仅接受目录
+      名称：
+    - PrefixFileFilter          基于前缀（不带路径的文件名)
+    - SuffixFileFilter          基于后缀(不带路径的文件名)=
+    - NameFileFilter         基于文件名称(不带路径的文件名)
+    - WildcardFileFilter 基于通配符(不带路径的文件名)
+    - RegexFileFilter         基于正则表达式
+      时间：
+    - AgeFileFilter       基于最后修改时间
+    - MagicNumberFileFileter   基于Magic Number
+      大小：
+    - EmptyFileFilter         基于文件或目录是否为空
+    - SizeFileFilter      基于文件尺寸
+      隐藏属性：
+    - HiddenFileFilter   基于文件或目录是否隐藏
+      读写属性：
+    - CanReadFileFilter 基于是否可读
+    - CanWriteFileFilter     基于是否可写入
+    - DelegateFileFilter 将普通的FileFilter和FilenameFilter包装成IOFileFilter
 
-  2. 逻辑关系过滤器
-	- AndFileFilter       基于AND逻辑运算
-	- OrFileFilter        基于OR逻辑运算
-	- NotFileFilter       基于NOT逻辑运算
-	- TrueFileFilter           不进行过滤
-	- FalseFileFilter          过滤所有文件及目录
+2. 逻辑关系过滤器
+   - AndFileFilter       基于AND逻辑运算
+   - OrFileFilter        基于OR逻辑运算
+   - NotFileFilter       基于NOT逻辑运算
+   - TrueFileFilter           不进行过滤
+   - FalseFileFilter          过滤所有文件及目录
 
 工具类：FileFilterUtils
 提供一些工厂方法用于生成各类文件过滤器
@@ -499,10 +499,10 @@ sort(List<File> files)
 toString()
 
 ##### Monitor文件监控
-  原理：
-	由文件监控类FileAlterationMonitor中的线程按指定的间隔不停的扫描文件观察器FileAlterationObserver，如果有文件的变化，则根据相关的文件比较器，判断文件时新增，还是删除，还是更改。（默认为1000毫秒执行一次扫描）
-	使用方法：
-	1、创建一个FileAlterationObserver对象，传入一个要监控的目录，这个对象会观察这些变化。
-	2、通过调用addListener()方法，为observer对象添加一个 FileAlterationListener对象。你可以通过很多种方式来创建，继承适配器类或者实现接口或者使用匿名内部类，实现所需要的监控方法。
-	3、创建一个FileAlterationMonitor 对象，将已经创建好的observer对象添加其中并且传入时间间隔参数（单位是毫秒）。
-	4、调用start()方法即可开启监视器，如果你想停止监视器，调用stop()方法即可。
+原理：
+由文件监控类FileAlterationMonitor中的线程按指定的间隔不停的扫描文件观察器FileAlterationObserver，如果有文件的变化，则根据相关的文件比较器，判断文件时新增，还是删除，还是更改。（默认为1000毫秒执行一次扫描）
+使用方法：
+1、创建一个FileAlterationObserver对象，传入一个要监控的目录，这个对象会观察这些变化。
+2、通过调用addListener()方法，为observer对象添加一个 FileAlterationListener对象。你可以通过很多种方式来创建，继承适配器类或者实现接口或者使用匿名内部类，实现所需要的监控方法。
+3、创建一个FileAlterationMonitor 对象，将已经创建好的observer对象添加其中并且传入时间间隔参数（单位是毫秒）。
+4、调用start()方法即可开启监视器，如果你想停止监视器，调用stop()方法即可。
